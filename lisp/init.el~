@@ -1,0 +1,77 @@
+(package-initialize)
+
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(require 'init-packages) 
+
+
+;;分割线；上面是插件设置
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(global-linum-mode 1)
+(delete-selection-mode 1)
+(setq-default crusor-type 'bar)
+(setq make-backup-files nil)
+(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+(global-hl-line-mode 1)
+
+;;主题
+(add-to-list 'my/packages 'solarized-theme)
+(load-theme 'solarized-dark t)
+
+;; 最近删除
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+
+
+;;关掉初始化界面
+(setq inhibit-splash-screen 1)
+
+
+
+;; 自动补全设置
+(add-hook 'after-init-hook 'global-company-mode)
+
+
+;; Org模式语法高亮
+(require 'org)
+(setq org-src-fontify-natively t)
+;; 设置默认 Org Agenda 文件目录
+(setq org-agenda-files '("~/geek/org/"))
+;; 设置 org-agenda 打开快捷键
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+
+
+(defun open-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+(global-set-key (kbd "<f2>") 'open-init-file)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-idle-delay 0.08)
+ '(company-minimum-prefix-length 1)
+ '(org-agenda-files nil)
+ '(package-selected-packages
+   (quote
+    (company hungry-delete swiper counsel smartparens js2-mode nodejs-repl exec-path-from-shell monokai-theme solarized-theme))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+
